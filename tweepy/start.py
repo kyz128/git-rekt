@@ -19,29 +19,26 @@ account_list = ["KingJames"]
 
 if len(account_list) > 0:
   for target in account_list:
-    print("Getting data for " + target)
-    item = auth_api.get_user(target)
+    #print("Getting data for " + target)
+    #item = auth_api.get_user(target, tweet_mode='extended')
     #print(item)
-    print("name: " + item.name)
-    print("screen_name: " + item.screen_name)
+    #print("name: " + item.name)
+    #print("screen_name: " + item.screen_name)
 
     tweet_count = 0
-    end_date = datetime.utcnow() - timedelta(days=60)
-    for status in tweepy.Cursor(auth_api.user_timeline, id=target).items():
-      print(status.text)
-      tweet_count += 1
-      if status.created_at < end_date:
-        break
+    end_date = datetime.utcnow() - timedelta(days=30)
+    for status in auth_api.user_timeline(id = target, tweet_mode="extended", count = 200):
+        s = status.full_text
+        if s.startswith("RT @") == False:
+            check = s.split()
+            if check[-1].startswith("https://") == True:
+                check.pop()
+                print(" ".join(check))
+            else:
+                print(s)
+            tweet_count += 1
+        if status.created_at < end_date:
+            break
     print(tweet_count)
 
 
-# Example OAuth 2 authentication function
-#for tweet in tweepy.Cursor(api.search, q='tweepy').items(10):
-#    print(tweet.text)
-
-
-
-# Example OAuth 1 authentication function
-# public_tweets = api.home_timeline()
-# for tweet in public_tweets:
-#     print(tweet.text)
