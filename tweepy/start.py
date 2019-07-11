@@ -2,6 +2,7 @@ import tweepy
 from datetime import datetime, date, time, timedelta
 from collections import Counter
 import sys
+import os
 # We use OAuth 2 authentication in this app for read-only access.
 
 # For OAuth 2 and OAuth 1 authentication; needed for read-only access
@@ -19,14 +20,17 @@ account_list = ["KingJames"]
 
 if len(account_list) > 0:
   for target in account_list:
-    text_file = open(target+"_profile.txt", "a")
+    file_name = target+"_profile.txt"
+    if os.path.exists(file_name):
+        os.remove(file_name)
+    text_file = open(file_name, "a")
     #print("Getting data for " + target)
     #item = auth_api.get_user(target, tweet_mode='extended')
     #print(item)
     #print("name: " + item.name)
     #print("screen_name: " + item.screen_name)
 
-    tweet_count = 0
+    #tweet_count = 0
     end_date = datetime.utcnow() - timedelta(days=30)
     for status in auth_api.user_timeline(id = target, tweet_mode="extended", count = 200):
         s = status.full_text
@@ -39,9 +43,7 @@ if len(account_list) > 0:
             else:
                 text_file.write(s+"\n")
                 #print(s)
-            tweet_count += 1
+            #tweet_count += 1
         if status.created_at < end_date:
             break
     text_file.close()
-    #print(tweet_count)
-
