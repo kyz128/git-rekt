@@ -8,8 +8,8 @@ This project was built for IBM's 2019 3-day internal hackathon for interns.
 
 Use pip3 to install ibm_watson and tweepy. 
 
+To run Tweepy to fetch new Twitter tweets, use
+` python3 gettweets.py `
+
 To run IBM Watson Personality Insights, use
 ` python3 run.py `
-
-To run Tweepy to fetch new Twitter tweets, use
-` python3 tweetpy/start.py `
