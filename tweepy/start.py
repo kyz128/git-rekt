@@ -19,6 +19,7 @@ account_list = ["KingJames"]
 
 if len(account_list) > 0:
   for target in account_list:
+    text_file = open(target+"_profile.txt", "a")
     #print("Getting data for " + target)
     #item = auth_api.get_user(target, tweet_mode='extended')
     #print(item)
@@ -33,12 +34,14 @@ if len(account_list) > 0:
             check = s.split()
             if check[-1].startswith("https://") == True:
                 check.pop()
-                print(" ".join(check))
+                text_file.write(" ".join(check)+"\n")
+                #print(" ".join(check))
             else:
-                print(s)
+                text_file.write(s+"\n")
+                #print(s)
             tweet_count += 1
         if status.created_at < end_date:
             break
-    print(tweet_count)
-
+    text_file.close()
+    #print(tweet_count)
 
