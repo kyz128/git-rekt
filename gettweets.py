@@ -14,21 +14,25 @@ auth = tweepy.AppAuthHandler("Lfdjsisd57ew2Bc0nvEXeyBXL", "THNlus5JSo3mSJvli1y0X
 
 auth_api = tweepy.API(auth)
 
+f = open("team_names.txt", "r")
+text = f.read()
+#print(text.split())
 
-account_list = ["KingJames","emmachamberlain"]
+account_list = text.split()
 
 
 if len(account_list) > 0:
   for target in account_list:
-    file_name = target+"_profile.txt"
-    if os.path.exists(file_name):
-        os.remove(file_name)
-    text_file = open(file_name, "a")
     #print("Getting data for " + target)
     try:
         item = auth_api.get_user(target, tweet_mode='extended')
     except:
         continue
+
+    file_name = target+"_profile.txt"
+    if os.path.exists(file_name):
+        os.remove(file_name)
+    text_file = open(file_name, "a")
     #print(item)
     #print("name: " + item.name)
     #print("screen_name: " + item.screen_name)
