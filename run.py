@@ -40,4 +40,4 @@ get_scores("needs")
 get_scores("values")
 
 
-print(scores_dict["values"]["Conservation"])
+print(scores_dict)
