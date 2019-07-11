@@ -8,7 +8,10 @@ personality_insights = PersonalityInsightsV3(
     url="https://gateway.watsonplatform.net/personality-insights/api"
 )
 
-with open(join(dirname(__file__), './profile.json')) as profile_json:
+# Ask user for file to input
+profile_text = input ("Tweet dump filename (JSON format): ");
+
+with open(join(dirname(__file__), profile_text)) as profile_json:
     profile = personality_insights.profile(
         profile_json.read(),
         'application/json',
