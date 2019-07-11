@@ -15,7 +15,7 @@ auth = tweepy.AppAuthHandler("Lfdjsisd57ew2Bc0nvEXeyBXL", "THNlus5JSo3mSJvli1y0X
 auth_api = tweepy.API(auth)
 
 
-account_list = ["KingJames"]
+account_list = ["KingJames","emmachamberlain"]
 
 
 if len(account_list) > 0:
@@ -25,14 +25,21 @@ if len(account_list) > 0:
         os.remove(file_name)
     text_file = open(file_name, "a")
     #print("Getting data for " + target)
-    #item = auth_api.get_user(target, tweet_mode='extended')
+    try:
+        item = auth_api.get_user(target, tweet_mode='extended')
+    except:
+        continue
     #print(item)
     #print("name: " + item.name)
     #print("screen_name: " + item.screen_name)
+    account_created_date = item.created_at
+    delta = datetime.utcnow() - account_created_date
+    account_age = delta.days
 
-    #tweet_count = 0
-    end_date = datetime.utcnow() - timedelta(days=30)
-    for status in auth_api.user_timeline(id = target, tweet_mode="extended", count = 200):
+    tweet_count = 0
+    end_date = datetime.utcnow() - timedelta(days=account_age)
+    #for status in auth_api.user_timeline(id = target, tweet_mode="extended", count = 5000):
+    for status in tweepy.Cursor(auth_api.user_timeline, screen_name= target, tweet_mode="extended", count = 5000).items():
         s = status.full_text
         if s.startswith("RT @") == False:
             check = s.split()
@@ -43,7 +50,8 @@ if len(account_list) > 0:
             else:
                 text_file.write(s+"\n")
                 #print(s)
-            #tweet_count += 1
-        if status.created_at < end_date:
-            break
+        tweet_count += 1
+        #if status.created_at < end_date:
+        #    break
     text_file.close()
+    #print(tweet_count)
