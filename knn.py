@@ -1,9 +1,12 @@
 import numpy as np 
 from sklearn.neighbors import KDTree
 import pickle
-
+import pandas as pd
 # rng = np.random.RandomState(0)
 # X = rng.random_sample((10, 23))  
+def get_train(json_file):
+	df= pd.read_json(json_file)
+	return df
 
 def build_kdtree(X, filename):
 	tree= KDTree(X, leaf_size=2)
@@ -58,12 +61,25 @@ def run(new_data, filename, start_data= None, model_trained= False):
 		tree= load_tree(filename)
 	else:
 		tree= build_kdtree(train_data, filename)
-	idx= get_neighbors_idx(tree, new_data)
+	idx= get_neighbors_idx(tree, [new_data])
 	val= predict(idx, train_data)
 	if val == 1:
 		return "Accept"
 	else:
 		return "Reject"
+
+def result_object(filename, pickle_file):
+	df= get_train(filename)
+	ndarr_train= df.to_numpy()[1:]
+	test= df.to_numpy()[0]
+	res= run(test, pickle_file, ndarr_train)
+	final= df.iloc[0].to_dict()
+	final["Predicted Decision"]= res
+	return final
+
+if __name__ == '__main__':
+	print(result_object("dataset.json", "final.pickle"))
+
 
 
 
