@@ -6,7 +6,7 @@ This project was built for IBM's 2019 3-day internal hackathon for interns.
 
 ## How to get started
 
-Use pip3 to install ibm_watson and tweepy. 
+Use pip3 to install funcy, tweepy and ibm_watson . 
 
 To run Tweepy to fetch new Twitter tweets, use
 ` python3 gettweets.py `
