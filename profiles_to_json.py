@@ -2,7 +2,6 @@ from ibm_watson import PersonalityInsightsV3
 from os.path import join, dirname
 import json
 import pandas as pd
-import numpy
 from itertools import chain
 from collections import defaultdict
 from funcy import merge_with
@@ -68,20 +67,19 @@ def personality_df(path=os.getcwd()):
 
     multi_dict = merge_with(list, files)
 
-    # print(type(test))
-    # print(test)
-
     df = pd.DataFramedf = pd.DataFrame(multi_dict, columns=header)
-    # print(dictionary)
+
     return df
-    # print(type(df))
 
 
 def main():
 
     df = personality_df()
+    print('Generated data table from "_profile.json" files:')
+    print(df)
 
-    df.to_json(r'{}/testdata.json'.format(os.getcwd()))
+    df.to_json(r'{}/dataset.json'.format(os.getcwd()))
+    print('Formating data into json file called "dataset.json"')
 
 
 if __name__ == "__main__":
