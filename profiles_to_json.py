@@ -53,12 +53,12 @@ def json_to_dict(filename):
     return dictionary
 
 
-def personality_df(path='/Users/daniel.rodriguez/Documents/HACKATON'):
+def personality_df(path=os.getcwd()):
     files = []
     # r=root, d=directories, f = files
     for r, d, f in os.walk(path):
         for file in f:
-            if '.json' in file:
+            if 'profile.json' in file:
                 files.append(os.path.join(r, file))
 
     for num, f in enumerate(files):
@@ -78,9 +78,10 @@ def personality_df(path='/Users/daniel.rodriguez/Documents/HACKATON'):
 
 
 def main():
+
     df = personality_df()
 
-    print(df)
+    df.to_json(r'{}/testdata.json'.format(os.getcwd()))
 
 
 if __name__ == "__main__":
