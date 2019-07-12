@@ -68,6 +68,7 @@ def run(new_data, filename, start_data= None, model_trained= False):
 	else:
 		return "Reject"
 
+#new stuff
 def result_object(filename, pickle_file):
 	df= get_train(filename)
 	ndarr_train= df.to_numpy()[1:]
@@ -75,7 +76,7 @@ def result_object(filename, pickle_file):
 	res= run(test, pickle_file, ndarr_train)
 	final= df.iloc[0].to_dict()
 	final["Predicted Decision"]= res
-	return final
+	return final 
 
 if __name__ == '__main__':
 	print(result_object("dataset.json", "final.pickle"))
