@@ -10,7 +10,7 @@ import os
 
 def json_to_dict(filename):
     personality_insights = PersonalityInsightsV3(
-        iam_apikey="vVm3UuuwXOq4A6QheE8pZ1cIiKaYVoGnPmWQRlE2vunM",
+        iam_apikey=API_KEY,
         version='2017-10-13',
         url="https://gateway.watsonplatform.net/personality-insights/api"
     )
